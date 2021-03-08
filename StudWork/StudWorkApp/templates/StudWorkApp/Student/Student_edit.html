@@ -1,0 +1,48 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block title %}StudWork-Student{% endblock title %}
+
+{% block headers %}
+            <a href="../../accounts/login/"; class="close">Выход</a>
+
+            <table class="table_price">
+            <nav class="top-menu">
+                <ul class="menu-main">
+                    {% if user.is_authenticated %}
+                        <li style="color:white"> <h2>Добро пожаловать: {{ user.get_username }} Ваш статус: {{ request.user.groups.get}}</h2></li>
+                    {% else %}
+                        <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+
+{% endblock %}
+
+{% block content %}
+    <tr><p><br><br></p></tr>
+                <tr>
+                      <td><h3>{{ subject }}</h3>{{ type_work }}</td>
+                      <td id="but" class="open-button"><a href="{% url 'student' %}"><button>Назад</button></a></td>
+                      <td id="but"><a href="{% url 'stud_tz' pk=id_work %}"><button>ТЗ</button></a></td>
+                      <td id="but"><a href="{% url 'stud_kp' pk=id_work %}"><button>КП</button></a></td>
+                </tr>
+</table>
+
+
+
+        <form method="post", class="form-container", id="Edit">
+                    {% csrf_token %}
+                    <p></p><h1>Редактировать</h1></p>
+                    <p><label for="name"><b>Тема</b></label></p>
+                    <p>{{ t_form.topic_work }}</p>
+                    <p><label for="name"><b>Github</b></label></p>
+                    <p>{{ r_form.github }}</p>
+                    <p><label for="name"><b>ТЗ</b></label></p>
+                    <p>{{ d_form.tz_link }}</p>
+                    <p><label for="name"><b>РПЗ</b></label></p>
+                    <p>{{ d_form.ptz_link }}</p>
+                    <button type="submit" class="btn">Сохранить</button>
+        </form>
+
+
+{% endblock content %}

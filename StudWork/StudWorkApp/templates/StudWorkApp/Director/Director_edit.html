@@ -1,0 +1,46 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block title %}StudWork-Director{% endblock title %}
+
+{% block style %}
+{% endblock style %}
+
+
+{%block script %}<script src="{% static 'StudWorkApp/js/Director.js' %}"></script>{% endblock script %}
+
+
+{% block headers %}
+    <a href="../../accounts/login/"; class="close">Выход</a>
+
+            <table class="table_price">
+            <nav class="top-menu">
+                <ul class="menu-main">
+                    {% if user.is_authenticated %}
+                        <li style="color:white"> <h2>Добро пожаловать: {{ user.get_username }} Ваш статус: {{ request.user.groups.get}}</h2></li>
+                    {% else %}
+                        <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+{% endblock %}
+
+{% block content %}
+
+        <h1>Список работ</h1>
+          {% if works %}
+              <tr></tr>
+            {% for el in works%}
+                    <tr>
+                          <td><h3>{{ el.subject }} ({{ el.type }})</h3></td>
+                        <td id="but" class="open-button" onclick="openForm(0)"><a href="{% url 'dir' pk=el.id_work %}"><button>Оценить</button></a></td>
+                    </tr>
+            {% endfor %}
+          {% else %}
+            <p>Работ нет</p>
+          {% endif %}
+        </table>
+            <br>
+          <a href="{% url 'director' %}"><button type="button" class="button" onclick="closeForm(1)" id="zak">Закрыть</button></a>
+
+
+{% endblock content %}

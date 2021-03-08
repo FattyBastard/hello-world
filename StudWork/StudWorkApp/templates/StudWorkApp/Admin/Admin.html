@@ -1,0 +1,102 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block title %}StudWork-Admin{% endblock title %}
+
+{% block style %}
+{% endblock style %}
+
+{%block script %}<script src="{% static 'StudWorkApp/js/Admin.js' %}"></script>{% endblock script %}
+
+{% block headers %}
+        <a href="../../accounts/login/"; class="close">Выход</a>
+            <table class="table_price">
+            <nav class="top-menu">
+                <ul class="menu-main">
+                    {% if user.is_authenticated %}
+                        <li style="color:white"> <h2>Добро пожаловать: {{ user.get_username }} Ваш статус: {{ request.user.groups.get}}</h2></li>
+                    {% else %}
+                        <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+
+{% endblock %}
+
+{% block content %}
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <button type="button"  onclick="openForm(1)" id="pek">Добавить работу</button>
+            <p></p>
+            <button type="button"  onclick="openForm(2)" id="pek">Добавить студента</button>
+            <p></p>
+            <button type="button"  onclick="openForm(3)" id="pek">Добавить руководителя</button>
+            <p></p>
+            <a href="{% url 'administrator_list'%}"> <button type="button" id="pek">Список руководителей</button></a>
+    </table>
+
+
+      <form action="#" class="form-container" id="Add_work"style="display: block", method="post">
+      {% csrf_token %}
+        <h1>Добавить работу</h1>
+
+        <label for="name"><b>Дисциплина</b></label>
+        {{w_form.subject}}
+          <p></p>
+
+          <label for="name"><b>Вид отчетности</b></label>
+        {{w_form.type}}
+          <br>
+
+          <label for="name"><b>ID студента</b></label>
+        <p>{{w_form.id_stud}}
+           </p>
+
+          <label for="name"><b>ID руководителя</b></label>
+       <p>{{w_form.id_dir}} </p>
+
+        <button type="submit" class="btn">Добавить</button>
+      </form>
+
+
+    <form action="#" class="form-container" id="Add_student", style="display: none", method="post">
+        {% csrf_token %}
+        <h1>Добавить студента</h1>
+
+
+        <label for="name"><b>ФИО</b></label>
+        {{s_form.fio_stud}}
+
+        <label for="name"><b>Логин</b></label>
+       {{s_form.login_stud}}
+
+        <label for="name"><b>Пароль</b></label>
+        {{s_form.password_stud}}
+
+        <button type="submit" class="btn">Добавить</button>
+      </form>
+
+
+    <form action="#" class="form-container" id="Add_director", style="display: none", method="post">
+    {% csrf_token %}
+        <h1>Добавить руководителя</h1>
+
+        <label for="name"><b>ФИО</b></label>
+        {{d_form.fio_dir}}
+        <br>
+
+          <label for="name"><b>Логин</b></label>
+        {{d_form.login_dir}}
+        <br>
+
+          <label for="name"><b>Пароль</b></label>
+        {{d_form.password_dir}}
+        <br>
+
+        <button type="submit" class="btn">Добавить</button>
+      </form>
+
+
+{% endblock content %}

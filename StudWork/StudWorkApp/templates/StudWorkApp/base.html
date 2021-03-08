@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'StudWorkApp/css/base.css' %}">
+    {% block style %}{% endblock %}
+    {% block script %} {% endblock %}
+
+
+</head>
+<body>
+    <div id="header">
+        {% block headers %}{% endblock %}
+    </div>
+
+    <main>
+        <div id="list_blok">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+</body>
+</html>
